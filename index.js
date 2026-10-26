@@ -21,7 +21,6 @@ const sliderConfigs = [
       slidesPerView: 3,
       spaceBetween: 20,
       loop: true,
-      loopFillGroupWithBlank: true,
       navigation: {
         nextEl: '.mySwiper-2 .swiper-button-next',
         prevEl: '.mySwiper-2 .swiper-button-prev',
@@ -45,14 +44,35 @@ sliderConfigs.forEach((config) => {
   new Swiper(config.selector, config.options);
 });
 
-let tabInputs = document.querySelectorAll(".tabInput");
+const tabInputs = document.querySelectorAll(".tabInput");
 
-tabInputs.forEach(function(input){
-    input.addEventListener('change', function(){
-        let id = input.ariaValueMax;
-        let thisSwiper = document.getElementById('swiper' + id);
-        if (thisSwiper && thisSwiper.swiper) {
-            thisSwiper.swiper.update();
-        }
+tabInputs.forEach(function(input) {
+    input.addEventListener('change', function() {
+        setTimeout(() => {
+            sliderConfigs.forEach((config) => {
+                const swiperEl = document.querySelector(config.selector);
+                if (swiperEl && swiperEl.swiper) {
+                    swiperEl.swiper.update();
+                }
+            });
+        }, 50);
     });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const animarElementos = document.querySelectorAll('.slider-text, .slider-img img, .product-txt, .product-img img, .info-txt, .info-img img, .credits-info, .support-container, .footer h4, .logo-4');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                entry.target.classList.remove('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    animarElementos.forEach(el => observer.observe(el));
 });
