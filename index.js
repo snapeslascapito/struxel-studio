@@ -3,15 +3,24 @@ const sliderConfigs = [
     selector: '.mySwiper-1',
     options: {
       slidesPerView: 1,
-      spaceBetween: 30,
+      spaceBetween: 0,
       loop: true,
-      pagination: {
-        el: '.mySwiper-1 .swiper-pagination',
-        clickable: true,
+      speed: 600,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
       },
       navigation: {
         nextEl: '.mySwiper-1 .swiper-button-next',
         prevEl: '.mySwiper-1 .swiper-button-prev',
+      },
+      on: {
+        autoplayTimeLeft(s, time, progress) {
+          const progressBar = document.querySelector('.mySwiper-1 .progress-bar');
+          if (progressBar) {
+            progressBar.style.width = `${(1 - progress) * 100}%`;
+          }
+        }
       }
     }
   },
@@ -60,7 +69,7 @@ tabInputs.forEach(function(input) {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const animarElementos = document.querySelectorAll('.slider-text, .slider-img img, .product-txt, .product-img img, .info-txt, .info-img img, .credits-info, .support-container, .footer h4, .logo-4');
+    const animarElementos = document.querySelectorAll('.slider-text, .info-txt, .info-img img, .credits-info, .support-container, .footer h4, .logo-4');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
