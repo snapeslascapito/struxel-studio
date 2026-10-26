@@ -26,6 +26,30 @@ img, video, canvas, svg {
     height: auto;
 }
 
+img {
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s ease;
+}
+
+body img:hover {
+    transform: scale(1.12) rotate(-5deg);
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+}
+
+.mySwiper-1 img:hover {
+    transform: none !important;
+    filter: none !important;
+}
+
+.products img:hover {
+    transform: none !important;
+    filter: none !important;
+}
+
+.logo-4:hover {
+    transform: none !important;
+    filter: none !important;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -44,12 +68,9 @@ img, video, canvas, svg {
 .swiper-button-prev {
     color: rgba(30, 255, 0, 0.685);
 }
-.swiper-pagination-bullet {
-    background-color: #D3D2D2;
-    opacity: 1;
-}
-.swiper-pagination-bullet-active {
-    background-color: rgba(30, 255, 0, 0.685);
+
+.mySwiper-1 .swiper-pagination {
+    display: none !important;
 }
 
 .menu {
@@ -75,31 +96,32 @@ img, video, canvas, svg {
     width: 100%;
 }
 .menu-1 {
-    margin-right: 0;
+    flex: 1;
     display: flex;
+    justify-content: flex-start;
 }
 .menu-2 {
+    flex: 1;
     color: #ffff;
     font-size: 18px;
-    margin-left: 0;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 .logo-1 {
-    pointer-events: none;
     width: 0;
 }
 .logo-2 {
-    pointer-events: none;
     height: 150px;
 }
 .logo-3 {
-    pointer-events: none;
     height: 150px;
     align-items: center;
 }
 .hfjio {
-    align-content: end;
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 .socials {
     display: flex;
@@ -149,6 +171,7 @@ img, video, canvas, svg {
     padding-bottom: 50px;
 }
 .slider {
+    position: relative;
     display: flex;
     align-items: center; 
 }
@@ -159,13 +182,19 @@ img, video, canvas, svg {
 .slider-text h1 {
     font-size: 70px;
     color: #ffff;
+    transition: transform 0.6s ease, opacity 0.6s ease;
 }
 .slider-text p {
     font-size: 18px;
     font-family: 'PixelCraft', sans-serif;
     color: #A7A7A7;
+    transition: transform 0.6s ease, opacity 0.6s ease;
 }
 .botones {
+    margin-top: 50px;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.bto{
     margin-top: 50px;
 }
 .btn-1, .btn-3, .btn-2 {
@@ -189,6 +218,14 @@ img, video, canvas, svg {
     background: #52a535;
     --border: #baafab;
 }
+.btn-1:active, .btn-3:active, .btn-2:active {
+    background: #337121;
+    box-shadow: 
+        inset 0 2px 0 0 #2a641c,
+        0 2px 0 0 #14320e;
+    transform: translateY(2px);
+}
+
 .slider-img {
     width: 50%;
 }
@@ -196,6 +233,52 @@ img, video, canvas, svg {
     margin-right: 225px;
     width: 550px;
     max-width: 100%;
+}
+
+.mySwiper-1 {
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-slide .slider-text h1,
+.swiper-slide .slider-text p,
+.swiper-slide .botones {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.swiper-slide-active .slider-text h1 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+.swiper-slide-active .slider-text p {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+.swiper-slide-active .botones {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+.swiper-autoplay-progress {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 10;
+}
+.swiper-autoplay-progress .progress-bar {
+    width: 0%;
+    height: 100%;
+    background: rgba(30, 255, 0, 0.85);
+    transition: width linear;
 }
 
 .products {
@@ -458,7 +541,6 @@ hr {
 }
 
 .logo-4 {
-    pointer-events: none;
     margin: 25px auto;
     width: 250px;
     height: 100px;
@@ -502,16 +584,9 @@ hr {
     font-size: 38px;
     color: #FFFFFF;
 }
-.slider-text, 
-.slider-img img, 
-.product-txt, 
-.product-img img, 
+
 .info-txt, 
-.info-img img, 
-.credits-info, 
-.support-container, 
-.footer h4,
-.logo-4 {
+.info-img img {
     opacity: 0;
     transform: scale(0.94);
     transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
